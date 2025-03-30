@@ -6,14 +6,6 @@
   <title>iSnapy – A Message to the Future</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    .image-panel img {
-      width: 100%;
-      height: auto;
-      max-height: 500px;
-      object-fit: cover;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
     .section-text {
       font-size: 1.25rem;
       line-height: 1.75rem;
@@ -45,58 +37,41 @@
         <li>🎂 Use for birthdays, time travel, truth bombs</li>
       </ul>
     </div>
-    <div class="md:w-1/2 mt-10 md:mt-0 image-panel">
-      <img src="your-image1.jpg" alt="App Preview">
+    <div class="md:w-1/2 mt-10 md:mt-0">
+      <img src="your-image1.jpg" alt="App Preview" class="w-full max-w-full rounded shadow-lg">
     </div>
   </section>
 
   <!-- Emotions Section -->
-  <section id="emotions" class="py-20 bg-white">
-    <h2 class="text-center section-heading">Emotions in Motion</h2>
+  <section id="emotions" class="py-16 bg-white text-gray-800">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">🎭 Emotions in Capsules</h2>
 
-    <div class="md:flex items-center mb-16 px-6">
-      <div class="md:w-1/2 image-panel">
-        <img src="alien-scene.jpg" alt="Alien Scene">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16">
+        <img src="alien-scene.jpg" alt="Alien scene" class="w-full max-h-[400px] object-cover rounded-lg shadow-lg" />
+        <p class="text-xl font-medium">“Stories that reach beyond Earth.”</p>
       </div>
-      <div class="md:w-1/2 md:pl-10 mt-6 md:mt-0 section-text">
-        “Even aliens need proof we existed.”
-      </div>
-    </div>
 
-    <div class="md:flex items-center mb-16 px-6 md:flex-row-reverse">
-      <div class="md:w-1/2 image-panel">
-        <img src="military-alarm.jpg" alt="Military Alarm">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16">
+        <p class="text-xl font-medium order-2 md:order-1">“Wake-up calls that hit like drills.”</p>
+        <img src="military-alarm.jpg" alt="Military wake-up" class="w-full max-h-[400px] object-cover rounded-lg shadow-lg order-1 md:order-2" />
       </div>
-      <div class="md:w-1/2 md:pr-10 mt-6 md:mt-0 section-text">
-        “Wake up. You sent this to yourself last year.”
-      </div>
-    </div>
 
-    <div class="md:flex items-center mb-16 px-6">
-      <div class="md:w-1/2 image-panel">
-        <img src="rich-guy.jpg" alt="Prediction Scene">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16">
+        <img src="rich-guy.jpg" alt="Stock market prophet" class="w-full max-h-[400px] object-cover rounded-lg shadow-lg" />
+        <p class="text-xl font-medium">“Make a call. Watch it come true.”</p>
       </div>
-      <div class="md:w-1/2 md:pl-10 mt-6 md:mt-0 section-text">
-        “I told you! 12 months ago. Here's the video.”
-      </div>
-    </div>
 
-    <div class="md:flex items-center mb-16 px-6 md:flex-row-reverse">
-      <div class="md:w-1/2 image-panel">
-        <img src="love-guy.jpg" alt="Shy Boy">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16">
+        <p class="text-xl font-medium order-2 md:order-1">“Love changes. Time doesn’t.”</p>
+        <img src="love-guy.jpg" alt="Shy boy message mixup" class="w-full max-h-[400px] object-cover rounded-lg shadow-lg order-1 md:order-2" />
       </div>
-      <div class="md:w-1/2 md:pr-10 mt-6 md:mt-0 section-text">
-        “He loved her... last year. Things change.”
-      </div>
-    </div>
 
-    <div class="md:flex items-center px-6">
-      <div class="md:w-1/2 image-panel">
-        <img src="29Feb.jpg" alt="Feb 29 Girl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <img src="29Feb.jpg" alt="Birthday on Feb 29" class="w-full max-h-[400px] object-cover rounded-lg shadow-lg" />
+        <p class="text-xl font-medium">“Some birthdays wait 4 years to hatch.”</p>
       </div>
-      <div class="md:w-1/2 md:pl-10 mt-6 md:mt-0 section-text">
-        “Her birthday comes every 4 years. So does her message.”
-      </div>
+
     </div>
   </section>
 
