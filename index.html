@@ -2,110 +2,127 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Time Capsule is Coming</title>
-  <style>
-    body {
-      background-color: black;
-      color: #00FF00;
-      font-family: 'Courier New', Courier, monospace;
-      text-align: center;
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-    }
-
-    h1 {
-      font-size: 3em;
-      margin-top: 12vh;
-      text-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
-      animation: flicker 2s infinite;
-    }
-
-    p {
-      font-size: 1.5em;
-      margin-bottom: 80px;
-    }
-
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 24%, 55% {
-        opacity: 0.4;
-      }
-    }
-
-    .matrix {
-      position: absolute;
-      top: 300px; /* Only below the text */
-      left: 0;
-      width: 100%;
-      height: calc(100% - 300px);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    .content {
-      position: relative;
-      z-index: 1;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iSnapy – A Message to the Future</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <div class="content">
-    <h1>⚡️ TIME CAPSULE IS COMING ⚡️</h1>
-    <p>Get ready for something radical...</p>
-  </div>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-  <div class="matrix">
-    <canvas id="matrixCanvas"></canvas>
-  </div>
+  <!-- Header / Hero -->
+  <header class="text-center py-20 bg-white shadow-md">
+    <h1 class="text-4xl md:text-6xl font-bold">iSnapy</h1>
+    <p class="mt-4 text-lg md:text-xl text-gray-600">🕰️ Send a message to the future. 📬 Let it hatch exactly when it matters.</p>
+    <a href="#our-app" class="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Create Your Capsule</a>
+  </header>
 
-  <script>
-    const canvas = document.getElementById('matrixCanvas');
-    const ctx = canvas.getContext('2d');
+  <!-- Our App Section -->
+  <section id="our-app" class="md:flex items-center py-16 px-6 bg-gray-100">
+    <div class="md:w-1/2 md:pr-8">
+      <h2 class="text-3xl font-semibold mb-4">🎁 What You Can Do</h2>
+      <ul class="space-y-3 text-gray-700">
+        <li>🎥 Record a message</li>
+        <li>⏳ Set a future delivery date</li>
+        <li>💌 Surprise someone or remind yourself</li>
+        <li>🎂 Use for birthdays, time travel, truth bombs</li>
+      </ul>
+    </div>
+    <div class="md:w-1/2 mt-8 md:mt-0">
+      <img src="your-image1.jpg" alt="App Preview" class="rounded shadow-md">
+    </div>
+  </section>
 
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight - 300;
+  <!-- Emotions Section -->
+  <section id="emotions" class="py-20 bg-white">
+    <h2 class="text-center text-3xl font-bold mb-12">🎭 Emotions in Motion</h2>
 
-    const chars = ['⌚', '⏰', '🕒', '🕓', '⌛', '🕘'];
-    const fontSize = 18;
-    const columns = Math.floor(width / fontSize);
-    const drops = Array(columns).fill(0);
+    <div class="md:flex items-center mb-12 px-6">
+      <div class="md:w-1/2">
+        <img src="alien-scene.jpg" alt="Alien Scene" class="rounded shadow">
+      </div>
+      <div class="md:w-1/2 md:pl-8 mt-6 md:mt-0">
+        <p class="text-xl">“Stories that reach beyond Earth.”</p>
+      </div>
+    </div>
 
-    function draw() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-      ctx.fillRect(0, 0, width, height);
+    <div class="md:flex items-center mb-12 px-6 md:flex-row-reverse">
+      <div class="md:w-1/2">
+        <img src="military-alarm.png" alt="Military Alarm" class="rounded shadow">
+      </div>
+      <div class="md:w-1/2 md:pr-8 mt-6 md:mt-0">
+        <p class="text-xl">“Wake-up calls with history inside.”</p>
+      </div>
+    </div>
 
-      ctx.fillStyle = '#00FF00';
-      ctx.font = fontSize + "px Courier New";
+    <div class="md:flex items-center mb-12 px-6">
+      <div class="md:w-1/2">
+        <img src="rich-guy.jpg" alt="Prediction Scene" class="rounded shadow">
+      </div>
+      <div class="md:w-1/2 md:pl-8 mt-6 md:mt-0">
+        <p class="text-xl">“Make predictions. Drop proof.”</p>
+      </div>
+    </div>
 
-      for (let i = 0; i < drops.length; i++) {
-        if (Math.random() > 0.96) { // Rarer drops
-          const text = chars[Math.floor(Math.random() * chars.length)];
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        }
+    <div class="md:flex items-center mb-12 px-6 md:flex-row-reverse">
+      <div class="md:w-1/2">
+        <img src="shy-boy.jpg" alt="Shy Boy" class="rounded shadow">
+      </div>
+      <div class="md:w-1/2 md:pr-8 mt-6 md:mt-0">
+        <p class="text-xl">“Oops... my heart moved on.”</p>
+      </div>
+    </div>
 
-        if (drops[i] * fontSize > height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
+    <div class="md:flex items-center px-6">
+      <div class="md:w-1/2">
+        <img src="feb29-girl.jpg" alt="Feb 29 Girl" class="rounded shadow">
+      </div>
+      <div class="md:w-1/2 md:pl-8 mt-6 md:mt-0">
+        <p class="text-xl">“Some messages wait longer than others…”</p>
+      </div>
+    </div>
+  </section>
 
-        drops[i]++;
-      }
-    }
+  <!-- About Us -->
+  <section id="about" class="py-16 px-6 bg-gray-100 text-center">
+    <h2 class="text-3xl font-bold mb-6">👥 About Us</h2>
+    <p class="max-w-3xl mx-auto text-lg text-gray-700">
+      We are digital storytellers, engineers, and emotional optimists. Our mission is to give time a memory button — helping people say things... later.
+    </p>
+    <div class="mt-8 space-y-2">
+      <p>👤 A – Vision & Strategy</p>
+      <p>👤 B – Engineering & UX</p>
+      <p>👤 C – Emotional AI & Content</p>
+    </div>
+  </section>
 
-    setInterval(draw, 50);
+  <!-- For Business -->
+  <section id="business" class="py-16 px-6 text-center">
+    <h2 class="text-3xl font-bold mb-6">💼 For Business</h2>
+    <p class="text-lg max-w-2xl mx-auto text-gray-600 mb-6">
+      Whether you're planning an event, building a team, or sharing future visions — iSnapy helps businesses connect deeply across time.
+    </p>
+    <ul class="space-y-2">
+      <li>🎉 Event planners: Schedule surprise messages</li>
+      <li>🏢 Companies: Year-later culture messages</li>
+      <li>🎁 Gift platforms: Emotional bundles</li>
+      <li>🧑‍🏫 Educators: Time-bound learning reflections</li>
+    </ul>
+    <p class="mt-6 text-blue-600 font-semibold">Want a demo? Contact us.</p>
+  </section>
 
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight - 300;
-    });
-  </script>
+  <!-- Contact Section -->
+  <section id="contact" class="py-16 px-6 bg-gray-200 text-center">
+    <h2 class="text-3xl font-bold mb-6">📬 Contact Us</h2>
+    <form action="mailto:your@email.com" method="POST" class="max-w-xl mx-auto space-y-4">
+      <input type="text" name="name" placeholder="Your Name" class="w-full p-3 rounded" required>
+      <input type="email" name="email" placeholder="Your Email" class="w-full p-3 rounded" required>
+      <textarea name="message" rows="4" placeholder="Your Message" class="w-full p-3 rounded" required></textarea>
+      <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Send</button>
+    </form>
+  </section>
+
+  <footer class="text-center text-sm py-6 text-gray-500">
+    Built with ❤️ by iSnapy Labs
+  </footer>
+
 </body>
 </html>
