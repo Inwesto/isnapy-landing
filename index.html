@@ -5,89 +5,108 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iSnapy – A Message to the Future</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .image-panel img {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .section-text {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+    .section-heading {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
   <!-- Header / Hero -->
   <header class="text-center py-20 bg-white shadow-md">
-    <h1 class="text-4xl md:text-6xl font-bold">iSnapy</h1>
-    <p class="mt-4 text-lg md:text-xl text-gray-600">🕰️ Send a message to the future. 📬 Let it hatch exactly when it matters.</p>
-    <a href="#our-app" class="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Create Your Capsule</a>
+    <h1 class="text-5xl font-bold tracking-tight">iSnapy</h1>
+    <p class="mt-4 text-xl text-gray-600 max-w-xl mx-auto">🕰️ Your personal message to the future. 📬 Schedule thoughts, predictions, or surprises for later moments in time.</p>
+    <a href="#our-app" class="mt-8 inline-block bg-blue-600 text-white px-8 py-3 rounded hover:bg-blue-700 transition">Create Your Capsule</a>
   </header>
 
   <!-- Our App Section -->
-  <section id="our-app" class="md:flex items-center py-16 px-6 bg-gray-100">
-    <div class="md:w-1/2 md:pr-8">
-      <h2 class="text-3xl font-semibold mb-4">🎁 What You Can Do</h2>
-      <ul class="space-y-3 text-gray-700">
+  <section id="our-app" class="md:flex items-center py-20 px-6 bg-gray-100">
+    <div class="md:w-1/2 md:pr-10">
+      <h2 class="section-heading">What You Can Do</h2>
+      <ul class="space-y-4 section-text text-gray-700">
         <li>🎥 Record a message</li>
         <li>⏳ Set a future delivery date</li>
         <li>💌 Surprise someone or remind yourself</li>
         <li>🎂 Use for birthdays, time travel, truth bombs</li>
       </ul>
     </div>
-    <div class="md:w-1/2 mt-8 md:mt-0">
-      <img src="your-image1.jpg" alt="App Preview" class="rounded shadow-md">
+    <div class="md:w-1/2 mt-10 md:mt-0 image-panel">
+      <img src="your-image1.jpg" alt="App Preview">
     </div>
   </section>
 
   <!-- Emotions Section -->
   <section id="emotions" class="py-20 bg-white">
-    <h2 class="text-center text-3xl font-bold mb-12">🎭 Emotions in Motion</h2>
+    <h2 class="text-center section-heading">Emotions in Motion</h2>
 
-    <div class="md:flex items-center mb-12 px-6">
-      <div class="md:w-1/2">
-        <img src="alien-scene.jpg" alt="Alien Scene" class="rounded shadow">
+    <div class="md:flex items-center mb-16 px-6">
+      <div class="md:w-1/2 image-panel">
+        <img src="alien-scene.jpg" alt="Alien Scene">
       </div>
-      <div class="md:w-1/2 md:pl-8 mt-6 md:mt-0">
-        <p class="text-xl">“Stories that reach beyond Earth.”</p>
+      <div class="md:w-1/2 md:pl-10 mt-6 md:mt-0 section-text">
+        “Even aliens need proof we existed.”
       </div>
     </div>
 
-    <div class="md:flex items-center mb-12 px-6 md:flex-row-reverse">
-      <div class="md:w-1/2">
-        <img src="military-alarm.jpg" alt="Military Alarm" class="rounded shadow">
+    <div class="md:flex items-center mb-16 px-6 md:flex-row-reverse">
+      <div class="md:w-1/2 image-panel">
+        <img src="military-alarm.jpg" alt="Military Alarm">
       </div>
-      <div class="md:w-1/2 md:pr-8 mt-6 md:mt-0">
-        <p class="text-xl">“Wake-up calls with history inside.”</p>
-      </div>
-    </div>
-
-    <div class="md:flex items-center mb-12 px-6">
-      <div class="md:w-1/2">
-        <img src="rich-guy.jpg" alt="Prediction Scene" class="rounded shadow">
-      </div>
-      <div class="md:w-1/2 md:pl-8 mt-6 md:mt-0">
-        <p class="text-xl">“Make predictions. Drop proof.”</p>
+      <div class="md:w-1/2 md:pr-10 mt-6 md:mt-0 section-text">
+        “Wake up. You sent this to yourself last year.”
       </div>
     </div>
 
-    <div class="md:flex items-center mb-12 px-6 md:flex-row-reverse">
-      <div class="md:w-1/2">
-        <img src="love-guy.jpg" alt="Shy Boy" class="rounded shadow">
+    <div class="md:flex items-center mb-16 px-6">
+      <div class="md:w-1/2 image-panel">
+        <img src="rich-guy.jpg" alt="Prediction Scene">
       </div>
-      <div class="md:w-1/2 md:pr-8 mt-6 md:mt-0">
-        <p class="text-xl">“Oops... my heart moved on.”</p>
+      <div class="md:w-1/2 md:pl-10 mt-6 md:mt-0 section-text">
+        “I told you! 12 months ago. Here's the video.”
+      </div>
+    </div>
+
+    <div class="md:flex items-center mb-16 px-6 md:flex-row-reverse">
+      <div class="md:w-1/2 image-panel">
+        <img src="love-guy.jpg" alt="Shy Boy">
+      </div>
+      <div class="md:w-1/2 md:pr-10 mt-6 md:mt-0 section-text">
+        “He loved her... last year. Things change.”
       </div>
     </div>
 
     <div class="md:flex items-center px-6">
-      <div class="md:w-1/2">
-        <img src="29Feb.jpg" alt="Feb 29 Girl" class="rounded shadow">
+      <div class="md:w-1/2 image-panel">
+        <img src="29Feb.jpg" alt="Feb 29 Girl">
       </div>
-      <div class="md:w-1/2 md:pl-8 mt-6 md:mt-0">
-        <p class="text-xl">“Some messages wait longer than others…”</p>
+      <div class="md:w-1/2 md:pl-10 mt-6 md:mt-0 section-text">
+        “Her birthday comes every 4 years. So does her message.”
       </div>
     </div>
   </section>
 
   <!-- About Us -->
-  <section id="about" class="py-16 px-6 bg-gray-100 text-center">
-    <h2 class="text-3xl font-bold mb-6">👥 About Us</h2>
-    <p class="max-w-3xl mx-auto text-lg text-gray-700">
+  <section id="about" class="py-20 px-6 bg-gray-100 text-center">
+    <h2 class="section-heading">About Us</h2>
+    <p class="max-w-3xl mx-auto section-text text-gray-700">
       We are digital storytellers, engineers, and emotional optimists. Our mission is to give time a memory button — helping people say things... later.
     </p>
-    <div class="mt-8 space-y-2">
+    <div class="mt-10 space-y-2">
       <p>👤 A – Vision & Strategy</p>
       <p>👤 B – Engineering & UX</p>
       <p>👤 C – Emotional AI & Content</p>
@@ -95,12 +114,12 @@
   </section>
 
   <!-- For Business -->
-  <section id="business" class="py-16 px-6 text-center">
-    <h2 class="text-3xl font-bold mb-6">💼 For Business</h2>
-    <p class="text-lg max-w-2xl mx-auto text-gray-600 mb-6">
+  <section id="business" class="py-20 px-6 text-center">
+    <h2 class="section-heading">For Business</h2>
+    <p class="section-text max-w-2xl mx-auto text-gray-600 mb-6">
       Whether you're planning an event, building a team, or sharing future visions — iSnapy helps businesses connect deeply across time.
     </p>
-    <ul class="space-y-2">
+    <ul class="section-text space-y-3">
       <li>🎉 Event planners: Schedule surprise messages</li>
       <li>🏢 Companies: Year-later culture messages</li>
       <li>🎁 Gift platforms: Emotional bundles</li>
@@ -110,8 +129,8 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="py-16 px-6 bg-gray-200 text-center">
-    <h2 class="text-3xl font-bold mb-6">📬 Contact Us</h2>
+  <section id="contact" class="py-20 px-6 bg-gray-200 text-center">
+    <h2 class="section-heading">Contact Us</h2>
     <form action="mailto:your@email.com" method="POST" class="max-w-xl mx-auto space-y-4">
       <input type="text" name="name" placeholder="Your Name" class="w-full p-3 rounded" required>
       <input type="email" name="email" placeholder="Your Email" class="w-full p-3 rounded" required>
