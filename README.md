@@ -1,20 +1,84 @@
-# iSnapy Landing Page
+# iSnapy landing — layered live-video version
 
-Modern dark landing page for iSnapy.com.
+Updated landing page with:
+- layered hero composition: phones, videos, glove clash overlay, VS badge, caption
+- default live video source set to `https://staging-api.isnapy.com`
+- random video endpoint: `/landing/random-videos?limit=24`
+- real `<video>` playback inside the iPhone screens
+- `object-fit: cover` + `object-position: center center` so videos fill phone frames without stretching
+- `glove-clash.png` as separate overlay asset with alpha transparency
 
-## Files
-- `index.html` — complete static landing page with embedded CSS and small JS year script.
-- `logo.png` — existing iSnapy logo.
-- `CNAME` — keeps GitHub Pages mapped to `isnapy.com`.
+## Files to upload/replace in GitHub
 
-## Deployment on GitHub Pages
-1. Replace the old `index.html` with this new version.
-2. Keep `logo.png` in the root folder.
-3. Keep `CNAME` exactly as it is: `isnapy.com`.
-4. Commit and push to GitHub.
-5. Wait 1-5 minutes and refresh `https://isnapy.com`.
+Upload/replace these files in the GitHub `isnapy-landing` repo:
+- `index.html`
+- `logo.png`
+- `glove-clash.png`
+- `README.md`
+- `CNAME`
 
-## Notes
-- No backend is required.
-- The page uses no external CDN dependencies.
-- Color variables are at the top of `index.html` under `:root` and can be adjusted to match the mobile UI exactly.
+## Backend endpoint expected
+
+The default API is staging:
+
+```js
+https://staging-api.isnapy.com/landing/random-videos?limit=24
+```
+
+Expected response:
+
+```json
+{
+  "videos": [
+    {
+      "id": 1,
+      "video_url": "https://staging-api.isnapy.com/media/videos_processed/video_1_mobile.mp4",
+      "thumbnail_url": "https://staging-api.isnapy.com/media/thumbnails/video_1.jpg",
+      "battle_power": 51
+    }
+  ]
+}
+```
+
+The landing intentionally does not use the thumbnail as the visible poster layer. The phone frames should show real muted autoplay video.
+
+## Override API for testing
+
+Production/staging can be switched without editing files:
+
+- staging default: `https://isnapy.com`
+- explicit staging: `https://isnapy.com/?api=https://staging-api.isnapy.com`
+- production later: `https://isnapy.com/?api=https://api.isnapy.com`
+
+## Browser checks
+
+Open DevTools console and look for:
+
+```text
+iSnapy landing videos loaded from https://staging-api.isnapy.com/landing/random-videos?limit=24
+```
+
+If videos do not play, test one returned URL directly:
+
+```bash
+curl -I https://staging-api.isnapy.com/media/videos_processed/video_1_mobile.mp4
+```
+
+Expected:
+
+```text
+HTTP/1.1 200 OK
+content-type: video/mp4
+```
+
+CORS test:
+
+```bash
+curl -I -H "Origin: https://isnapy.com" https://staging-api.isnapy.com/landing/random-videos?limit=2
+```
+
+Expected:
+
+```text
+access-control-allow-origin: https://isnapy.com
+```
