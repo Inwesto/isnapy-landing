@@ -994,6 +994,7 @@
     const VIDEO_ENDPOINTS = [
       '/landing/random-videos?limit=24',
       '/api/landing/random-videos?limit=24',
+      '/api/videos/feed?limit=24',
       '/videos/public?limit=24',
       '/api/videos/public?limit=24',
       '/feed/public?limit=24',
@@ -1003,6 +1004,7 @@
     ];
 
     const VIDEO_URL_KEYS = [
+      'processed_url', 'processedUrl', 'original_url', 'originalUrl',
       'video_url', 'videoUrl', 'url', 'media_url', 'mediaUrl', 'file_url',
       'fileUrl', 'playback_url', 'playbackUrl', 'hls_url', 'hlsUrl', 'src', 'path'
     ];
@@ -1069,7 +1071,12 @@
     }
 
     function shuffle(items) {
-      return [...items].sort(() => Math.random() - 0.5);
+      const copy = [...items];
+      for (let index = copy.length - 1; index > 0; index -= 1) {
+        const swapIndex = Math.floor(Math.random() * (index + 1));
+        [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+      }
+      return copy;
     }
 
     function setFighter(videoElementId, fallbackId, powerId, barId, fighter) {
@@ -1128,7 +1135,7 @@
       const [fighterA, fighterB] = shuffle(videos).slice(0, 2);
       setFighter('videoA', 'fallbackA', 'powerA', 'barA', fighterA);
       setFighter('videoB', 'fallbackB', 'powerB', 'barB', fighterB);
-      caption.textContent = `Two public videos were randomly selected from ${API_BASE} for this refresh.`;
+      caption.textContent = `Two active public videos were randomly selected from ${API_BASE} for this refresh.`;
     }
 
     bootLandingArena();
