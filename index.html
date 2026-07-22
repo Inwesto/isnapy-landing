@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="iSnapy is a social video battle app where short videos gain power by beating other videos." />
   <meta name="theme-color" content="#050712" />
-  <title>iSnapy — Video Battles</title>
+  <title>iSnapy вЂ” Video Battles</title>
   <style>
     :root {
       --bg: #050712;
@@ -839,7 +839,7 @@
           <a class="button button-secondary" href="#mechanics">See the mechanics</a>
         </div>
         <p class="small-note">
-          The landing arena pulls random public videos from the iSnapy staging backend on every page refresh, so the homepage always feels alive.
+          The arena pulls random public videos on every refresh, so the homepage always feels alive.
         </p>
         <div class="hero-stats" aria-label="iSnapy highlights">
           <div class="stat-chip"><b>2 fighters</b>Random clips from the public pool</div>
@@ -912,17 +912,17 @@
       </div>
       <div class="grid-3">
         <article class="feature-card">
-          <div class="icon">🎥</div>
+          <div class="icon">рџЋҐ</div>
           <h3>Upload short videos</h3>
           <p>Creators upload clips that become active objects inside the iSnapy world: visible, measurable, and ready for interaction.</p>
         </article>
         <article class="feature-card">
-          <div class="icon">🥊</div>
+          <div class="icon">рџҐЉ</div>
           <h3>Enter battles</h3>
           <p>Videos can challenge other videos, win exposure, gain status, or get wounded after risky fights.</p>
         </article>
         <article class="feature-card">
-          <div class="icon">✨</div>
+          <div class="icon">вњЁ</div>
           <h3>Become alive</h3>
           <p>Stickers, shields, cracked states, boosts, and revival mechanics make each video feel like a living object.</p>
         </article>
@@ -948,7 +948,7 @@
           <div class="eyebrow">Battle logic preview</div>
           <h2 style="margin:0; font-size:clamp(2rem, 4vw, 3.7rem); line-height:0.95; letter-spacing:-0.06em;">Watch. Guess. Challenge. Survive.</h2>
           <p style="color:var(--muted-2); line-height:1.65; max-width:620px; margin:18px 0 0;">
-            The opponent’s true strength does not need to be fully visible. Creators see hints, take risks, and decide whether to fight, protect, boost, or revive.
+            The opponentвЂ™s true strength does not need to be fully visible. Creators see hints, take risks, and decide whether to fight, protect, boost, or revive.
           </p>
           <div class="battle-row">
             <div class="battle-tile"><span>Your video</span><strong>72</strong><span>Protected + sticker bonus</span></div>
@@ -976,8 +976,8 @@
 
   <footer class="footer">
     <div class="shell footer-inner">
-      <span>© <span id="year"></span> iSnapy. Private MVP under development.</span>
-      <span>Alive videos • Battles • Stickers • Revival</span>
+      <span>В© <span id="year"></span> iSnapy. Private MVP under development.</span>
+      <span>Alive videos вЂў Battles вЂў Stickers вЂў Revival</span>
     </div>
   </footer>
 
@@ -1135,7 +1135,7 @@
       const [fighterA, fighterB] = shuffle(videos).slice(0, 2);
       setFighter('videoA', 'fallbackA', 'powerA', 'barA', fighterA);
       setFighter('videoB', 'fallbackB', 'powerB', 'barB', fighterB);
-      caption.textContent = `Two active public videos were randomly selected from ${API_BASE} for this refresh.`;
+      caption.textContent = 'Live battle preview — refresh for a new matchup.';
     }
 
     bootLandingArena();
