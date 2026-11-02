@@ -840,7 +840,7 @@
           <a class="button button-secondary" href="#mechanics">See the mechanics</a>
         </div>
         <p class="small-note">
-          Adults can choose to load two public pilot clips in the arena.
+          The arena draws two clips from the public feed. Refresh for another draw.
         </p>
         <div class="hero-stats" aria-label="iSnapy highlights">
           <div class="stat-chip"><b>2 fighters</b>Random clips from the public pool</div>
@@ -897,10 +897,7 @@
             </div>
           </article>
 
-          <div class="arena-caption" id="arenaCaption">
-            By choosing to watch, you agree to the <a href="terms.html">Terms of Use</a>. Read our <a href="privacy.html">Privacy Policy</a>.<br>
-            <button class="button button-secondary" id="arenaAdult" type="button" style="margin:.5rem;min-height:44px;cursor:pointer">I’m 18 or older · Watch clips</button>
-          </div>
+          <div class="arena-caption" id="arenaCaption" aria-live="polite">Loading public clips...</div>
         </div>
       </div>
     </header>
@@ -997,8 +994,6 @@
   const api = requested.replace(/\/$/, '') === production ? production : staging;
   const feedUrl = api + '/api/videos/feed?limit=24';
   const caption = byId('arenaCaption');
-  const gate = byId('arenaAdult');
-  const gateKey = 'isnapy.arena.adult.pilot-2026-11-02-r2';
   const slots = ['A', 'B'];
   let remaining = [];
   const occupied = new Map();
@@ -1139,15 +1134,7 @@
     } finally { clearTimeout(timer); }
   }
 
-  // Legal pages stay readable; no clip or feed request before this tab's confirmation.
-  let confirmed = false;
-  try { confirmed = sessionStorage.getItem(gateKey) === 'yes'; } catch {}
-  if (confirmed) { boot(); return; }
-  slots.forEach(slot => placeholder(slot, 'Fighter ' + slot + ' preview'));
-  gate.addEventListener('click', () => {
-    try { sessionStorage.setItem(gateKey, 'yes'); } catch {}
-    boot();
-  }, {once:true});
+  boot();
 })();
   </script>
 </body>
