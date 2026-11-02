@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="iSnapy is a social video battle app where short videos gain power by beating other videos." />
   <meta name="theme-color" content="#050712" />
-  <title>iSnapy вЂ” Video Battles</title>
+  <title>iSnapy &#x2014; Video Battles</title>
   <style>
     :root {
       --bg: #050712;
@@ -914,17 +914,17 @@
       </div>
       <div class="grid-3">
         <article class="feature-card">
-          <div class="icon">рџЋҐ</div>
+          <div class="icon">&#x1F3A5;</div>
           <h3>Upload short videos</h3>
           <p>Creators upload clips that become active objects inside the iSnapy world: visible, measurable, and ready for interaction.</p>
         </article>
         <article class="feature-card">
-          <div class="icon">рџҐЉ</div>
+          <div class="icon">&#x1F94A;</div>
           <h3>Enter battles</h3>
           <p>Videos can challenge other videos, win exposure, gain status, or get wounded after risky fights.</p>
         </article>
         <article class="feature-card">
-          <div class="icon">вњЁ</div>
+          <div class="icon">&#x2728;</div>
           <h3>Become alive</h3>
           <p>Stickers, shields, cracked states, boosts, and revival mechanics make each video feel like a living object.</p>
         </article>
@@ -950,7 +950,7 @@
           <div class="eyebrow">Battle logic preview</div>
           <h2 style="margin:0; font-size:clamp(2rem, 4vw, 3.7rem); line-height:0.95; letter-spacing:-0.06em;">Watch. Guess. Challenge. Survive.</h2>
           <p style="color:var(--muted-2); line-height:1.65; max-width:620px; margin:18px 0 0;">
-            The opponentвЂ™s true strength does not need to be fully visible. Creators see hints, take risks, and decide whether to fight, protect, boost, or revive.
+            The opponent&#x2019;s true strength does not need to be fully visible. Creators see hints, take risks, and decide whether to fight, protect, boost, or revive.
           </p>
           <div class="battle-row">
             <div class="battle-tile"><span>Your video</span><strong>72</strong><span>Protected + sticker bonus</span></div>
@@ -978,172 +978,177 @@
 
   <footer class="footer">
     <div class="shell footer-inner">
-      <span>В© <span id="year"></span> iSnapy. Private MVP under development.</span>
+      <span>&#xa9; <span id="year"></span> iSnapy. Private MVP under development.</span>
       <nav aria-label="Legal and safety" style="display:flex;gap:1rem;flex-wrap:wrap"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="safety.html">Report a problem</a></nav>
     </div>
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+// iSnapy staging arena, November 2026. Embedded in the public homepage by apply.cjs.
+(() => {
+  'use strict';
+  const byId = id => document.getElementById(id);
+  const year = byId('year');
+  if (year) year.textContent = new Date().getFullYear();
 
-    /**
-     * Landing video hook.
-     * Keep this public-only. The page will try the endpoints below and use the
-     * first response containing video objects. Default points to staging for landing tests; use ?api= to override.
-     */
-    const params = new URLSearchParams(window.location.search);
-    const API_BASE = (params.get('api') || window.ISNAPY_API_BASE || 'https://staging-api.isnapy.com').replace(/\/$/, '');
-    const VIDEO_ENDPOINTS = [
-      '/landing/random-videos?limit=24',
-      '/api/landing/random-videos?limit=24',
-      '/api/videos/feed?limit=24',
-      '/videos/public?limit=24',
-      '/api/videos/public?limit=24',
-      '/feed/public?limit=24',
-      '/api/feed/public?limit=24',
-      '/immersive/feed?limit=24',
-      '/api/immersive/feed?limit=24'
-    ];
+  const staging = 'https://staging-api.isnapy.com';
+  const production = 'https://api.isnapy.com';
+  const requested = new URLSearchParams(location.search).get('api') || window.ISNAPY_API_BASE || '';
+  const api = requested.replace(/\/$/, '') === production ? production : staging;
+  const feedUrl = api + '/api/videos/feed?limit=24';
+  const caption = byId('arenaCaption');
+  const gate = byId('arenaAdult');
+  const gateKey = 'isnapy.arena.adult.pilot-2026-11-02-r2';
+  const slots = ['A', 'B'];
+  let remaining = [];
+  const occupied = new Map();
 
-    const VIDEO_URL_KEYS = [
-      'processed_url', 'processedUrl', 'original_url', 'originalUrl',
-      'video_url', 'videoUrl', 'url', 'media_url', 'mediaUrl', 'file_url',
-      'fileUrl', 'playback_url', 'playbackUrl', 'hls_url', 'hlsUrl', 'src', 'path'
-    ];
+  function secureUrl(value) {
+    if (typeof value !== 'string' || !value.trim()) return '';
+    try {
+      const u = new URL(value.trim(), api + '/');
+      if (u.protocol === 'http:' && u.hostname === new URL(api).hostname) u.protocol = 'https:';
+      return u.protocol === 'https:' ? u.href : '';
+    } catch { return ''; }
+  }
 
-    const POSTER_URL_KEYS = [
-      'thumbnail_url', 'thumbnailUrl', 'poster_url', 'posterUrl', 'cover_url',
-      'coverUrl', 'preview_url', 'previewUrl'
-    ];
-
-    function asAbsoluteUrl(raw) {
-      if (!raw || typeof raw !== 'string') return '';
-      if (/^https?:\/\//i.test(raw)) return raw;
-      return `${API_BASE}${raw.startsWith('/') ? '' : '/'}${raw}`;
+  function makePool(rows) {
+    const pool = [];
+    const ids = new Set();
+    const urls = new Set();
+    for (const item of rows) {
+      if (!item || typeof item !== 'object') continue;
+      const sources = [...new Set([item.processed_url, item.original_url, item.video_url, item.url]
+        .map(secureUrl).filter(Boolean))];
+      if (!sources.length || (item.id != null && ids.has(String(item.id))) || sources.some(u => urls.has(u))) continue;
+      if (item.id != null) ids.add(String(item.id));
+      sources.forEach(u => urls.add(u));
+      pool.push({sources, power: item.battle_power});
     }
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return pool;
+  }
 
-    function pickField(item, keys) {
-      for (const key of keys) {
-        if (item && item[key]) return asAbsoluteUrl(item[key]);
+  function action(label, fn) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'button button-secondary';
+    button.style.cssText = 'margin:.3rem;min-height:44px;cursor:pointer';
+    button.textContent = label;
+    button.addEventListener('click', fn);
+    caption.appendChild(button);
+    return button;
+  }
+
+  function placeholder(slot, text) {
+    const fallback = byId('fallback' + slot);
+    fallback.textContent = text;
+    fallback.style.zIndex = '2';
+    fallback.style.opacity = '1';
+  }
+
+  function showClip(slot) {
+    const clip = remaining.pop();
+    const video = byId('video' + slot);
+    const fallback = byId('fallback' + slot);
+    const power = byId('power' + slot);
+    const bar = byId('bar' + slot);
+    occupied.delete(slot);
+    if (!clip) {
+      video.onerror = video.onplaying = null;
+      video.removeAttribute('src');
+      video.load();
+      power.textContent = '-';
+      bar.style.width = '0%';
+      placeholder(slot, 'No other playable clip');
+      if (!occupied.size) {
+        caption.textContent = 'The feed loaded, but these clips could not play in this browser. ';
+        action('Try again', boot);
+      } else {
+        const status = byId('arenaMessage');
+        if (status) status.textContent = 'One public clip is available. ';
       }
-      return '';
+      return;
     }
-
-    function extractVideoList(payload) {
-      if (Array.isArray(payload)) return payload;
-      if (!payload || typeof payload !== 'object') return [];
-
-      const candidates = ['videos', 'items', 'results', 'data', 'feed', 'public_videos', 'publicVideos'];
-      for (const key of candidates) {
-        if (Array.isArray(payload[key])) return payload[key];
-        if (payload[key] && Array.isArray(payload[key].items)) return payload[key].items;
-        if (payload[key] && Array.isArray(payload[key].videos)) return payload[key].videos;
-      }
-      return [];
-    }
-
-    function normalizeVideo(item) {
-      const directUrl = pickField(item, VIDEO_URL_KEYS);
-      const nestedUrl = item?.video && typeof item.video === 'object' ? pickField(item.video, VIDEO_URL_KEYS) : '';
-      const poster = pickField(item, POSTER_URL_KEYS) || (item?.video && typeof item.video === 'object' ? pickField(item.video, POSTER_URL_KEYS) : '');
-      const power = Number(item?.battle_power ?? item?.power ?? item?.score ?? item?.wins ?? item?.rating);
-      return {
-        url: directUrl || nestedUrl,
-        poster,
-        power: Number.isFinite(power) ? Math.max(1, Math.min(99, Math.round(power))) : Math.floor(55 + Math.random() * 35)
-      };
-    }
-
-    async function fetchPublicVideos() {
-      for (const endpoint of VIDEO_ENDPOINTS) {
-        try {
-          const response = await fetch(`${API_BASE}${endpoint}`, { mode: 'cors', credentials: 'omit' });
-          if (!response.ok) continue;
-          const payload = await response.json();
-          const videos = extractVideoList(payload)
-            .map(normalizeVideo)
-            .filter(video => Boolean(video.url));
-          if (videos.length) { console.debug('iSnapy landing videos loaded from', `${API_BASE}${endpoint}`, videos); return videos; }
-        } catch (error) {
-          console.debug('iSnapy landing video endpoint failed', endpoint, error);
-          // Try next endpoint silently; the fallback artwork remains visible.
-        }
-      }
-      return [];
-    }
-
-    function shuffle(items) {
-      const copy = [...items];
-      for (let index = copy.length - 1; index > 0; index -= 1) {
-        const swapIndex = Math.floor(Math.random() * (index + 1));
-        [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
-      }
-      return copy;
-    }
-
-    function setFighter(videoElementId, fallbackId, powerId, barId, fighter) {
-      const videoElement = document.getElementById(videoElementId);
-      const fallback = document.getElementById(fallbackId);
-      const power = document.getElementById(powerId);
-      const bar = document.getElementById(barId);
-
-      if (!fighter?.url) {
-        videoElement.removeAttribute('src');
-        videoElement.load();
-        fallback.style.opacity = '1';
-        return;
-      }
-
-      // Do not use thumbnail posters here: the landing should show real moving video inside the iPhones.
-      videoElement.removeAttribute('poster');
-      videoElement.src = fighter.url;
-      videoElement.muted = true;
-      videoElement.defaultMuted = true;
-      videoElement.loop = true;
-      videoElement.playsInline = true;
-      videoElement.setAttribute('playsinline', '');
-      videoElement.setAttribute('webkit-playsinline', '');
-      videoElement.autoplay = true;
-      videoElement.controls = false;
-      fallback.style.opacity = '1';
-      const hideFallback = () => { fallback.style.opacity = '0'; };
-      videoElement.addEventListener('loadeddata', hideFallback, { once: true });
-      videoElement.addEventListener('canplay', hideFallback, { once: true });
-      videoElement.addEventListener('playing', hideFallback, { once: true });
-      videoElement.addEventListener('error', () => { fallback.style.opacity = '1'; }, { once: true });
-      videoElement.load();
-      videoElement.play().then(() => {
-        fallback.style.opacity = '0';
-      }).catch(() => {
-        // Some browsers delay autoplay until interaction. Muted + playsinline usually works on mobile.
+    occupied.set(slot, clip);
+    let playButton;
+    let sourceNumber = 0;
+    function tryPlay() {
+      const currentSource = sourceNumber;
+      const p = video.play();
+      if (!p) return;
+      p.catch(err => {
+        if (err.name !== 'NotAllowedError' || occupied.get(slot) !== clip || currentSource !== sourceNumber || playButton) return;
+        placeholder(slot, 'Tap Play ' + slot + ' below');
+        playButton = action('Play ' + slot, tryPlay);
       });
-
-      power.textContent = String(fighter.power);
-      bar.style.width = `${Math.max(18, Math.min(96, fighter.power))}%`;
     }
+    video.muted = video.defaultMuted = video.loop = video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.removeAttribute('poster');
+    video.onplaying = () => {
+      fallback.style.opacity = '0';
+      if (playButton) { playButton.remove(); playButton = undefined; }
+    };
+    function loadNext() {
+      if (playButton) { playButton.remove(); playButton = undefined; }
+      if (sourceNumber >= clip.sources.length) { showClip(slot); return; }
+      placeholder(slot, 'Loading clip ' + slot);
+      video.src = clip.sources[sourceNumber++];
+      video.load();
+      tryPlay();
+    }
+    power.textContent = clip.power == null ? '-' : String(clip.power);
+    bar.style.width = Math.min(99, Math.max(0, Number(clip.power) || 0)) + '%';
+    video.onerror = loadNext;
+    loadNext();
+  }
 
-    async function bootLandingArena() {
-      const videos = await fetchPublicVideos();
-      const caption = document.getElementById('arenaCaption');
-
-      if (videos.length < 2) {
-        caption.textContent = videos.length === 1
-          ? 'One public video found. Add more public videos and refresh to create a live battle pair.'
-          : 'Waiting for staging videos. Check CORS/media URLs if this message remains after refresh.';
-        if (videos.length === 1) setFighter('videoA', 'fallbackA', 'powerA', 'barA', videos[0]);
+  async function boot() {
+    caption.textContent = 'Loading public clips...';
+    const abort = new AbortController();
+    const timer = setTimeout(() => abort.abort(), 12000);
+    try {
+      const response = await fetch(feedUrl, {mode:'cors', credentials:'omit', cache:'no-store', signal:abort.signal});
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const data = await response.json();
+      if (!Array.isArray(data)) throw new Error('Expected a public video list');
+      remaining = makePool(data);
+      if (!remaining.length) {
+        slots.forEach(s => placeholder(s, 'No public clip available'));
+        caption.textContent = 'No public clips with playable URLs were returned. ';
+        action('Check again', boot);
         return;
       }
+      const count = remaining.length;
+      caption.textContent = '';
+      const status = document.createElement('span');
+      status.id = 'arenaMessage';
+      status.textContent = count === 1 ? 'One public clip is available. ' : 'Two random public clips. Refresh for another draw. ';
+      caption.appendChild(status);
+      showClip('A');
+      showClip('B');
+    } catch (error) {
+      console.warn('iSnapy arena feed:', feedUrl, error.message);
+      slots.forEach(s => placeholder(s, 'Feed unavailable'));
+      caption.textContent = 'Could not load the public video feed. ';
+      action('Retry', boot);
+    } finally { clearTimeout(timer); }
+  }
 
-      const [fighterA, fighterB] = shuffle(videos).slice(0, 2);
-      setFighter('videoA', 'fallbackA', 'powerA', 'barA', fighterA);
-      setFighter('videoB', 'fallbackB', 'powerB', 'barB', fighterB);
-      caption.textContent = 'Live battle preview — refresh for a new matchup.';
-    }
-
-    document.getElementById('arenaAdult').addEventListener('click', () => {
-      document.getElementById('arenaCaption').textContent = 'Loading the public arena…';
-      bootLandingArena();
-    }, { once: true });
+  // Legal pages stay readable; no clip or feed request before this tab's confirmation.
+  let confirmed = false;
+  try { confirmed = sessionStorage.getItem(gateKey) === 'yes'; } catch {}
+  if (confirmed) { boot(); return; }
+  slots.forEach(slot => placeholder(slot, 'Fighter ' + slot + ' preview'));
+  gate.addEventListener('click', () => {
+    try { sessionStorage.setItem(gateKey, 'yes'); } catch {}
+    boot();
+  }, {once:true});
+})();
   </script>
 </body>
 </html>
