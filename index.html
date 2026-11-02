@@ -550,6 +550,7 @@
     }
 
     .arena-caption {
+      z-index: 10;
       position: absolute;
       left: 50%;
       bottom: 6px;
@@ -839,7 +840,7 @@
           <a class="button button-secondary" href="#mechanics">See the mechanics</a>
         </div>
         <p class="small-note">
-          The arena pulls random public videos on every refresh, so the homepage always feels alive.
+          Adults can choose to load two public pilot clips in the arena.
         </p>
         <div class="hero-stats" aria-label="iSnapy highlights">
           <div class="stat-chip"><b>2 fighters</b>Random clips from the public pool</div>
@@ -897,7 +898,8 @@
           </article>
 
           <div class="arena-caption" id="arenaCaption">
-            Live homepage concept: two random public iSnapy videos face each other like fighters.
+            By choosing to watch, you agree to the <a href="terms.html">Terms of Use</a>. Read our <a href="privacy.html">Privacy Policy</a>.<br>
+            <button class="button button-secondary" id="arenaAdult" type="button" style="margin:.5rem;min-height:44px;cursor:pointer">I’m 18 or older · Watch clips</button>
           </div>
         </div>
       </div>
@@ -977,7 +979,7 @@
   <footer class="footer">
     <div class="shell footer-inner">
       <span>В© <span id="year"></span> iSnapy. Private MVP under development.</span>
-      <span>Alive videos вЂў Battles вЂў Stickers вЂў Revival</span>
+      <nav aria-label="Legal and safety" style="display:flex;gap:1rem;flex-wrap:wrap"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="safety.html">Report a problem</a></nav>
     </div>
   </footer>
 
@@ -1138,7 +1140,10 @@
       caption.textContent = 'Live battle preview — refresh for a new matchup.';
     }
 
-    bootLandingArena();
+    document.getElementById('arenaAdult').addEventListener('click', () => {
+      document.getElementById('arenaCaption').textContent = 'Loading the public arena…';
+      bootLandingArena();
+    }, { once: true });
   </script>
 </body>
 </html>
